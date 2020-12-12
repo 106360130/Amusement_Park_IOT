@@ -1,0 +1,69 @@
+<!--
+    "非同步傳送"功能失敗
+-->
+<html>
+	<head>
+		<meta charset = "utf-8">
+        <title>My test page</title>
+        <!--"https://developers.google.com/speed/libraries"-->
+        <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <script>
+            $(document).ready(function(){
+                /*新增"button"功能*/
+                $("button").click(function(){
+                    $("#content").text("456");
+                });
+
+                /*"click"功能*/
+                $("#change").click(function(){
+                    $("#content").html('<button type = "button" id = "newone">新按紐 </button>');
+                    $("#newone").bind("click", function(){
+                        $("#content").text("內容");
+                    });
+                });
+
+                /*"非同步傳送"*/
+                $("ajaxBtn").click(function(){
+                    var xhttp = XMLHttpRequest();
+                    xhttp.onreadystatechange = function(){
+                        if(this.readyState == 4 && this.status == 200)
+                        {
+                            $("#textarea").text(this.responseText);
+                        }
+                    };
+
+                    //使用"POST"
+                    xhttp.open("POST", "http://localhost:3000/test", true);
+                    //xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                    //xhttp.send("mydata="+$("#mydata".val()));
+                    xhttp.send();
+
+                });
+                
+                
+                
+            });
+        </script>
+    </head>
+
+    <body>
+        <h3>動態改變</h3>
+        <p id="content">原本</p>
+        <button type="button">改變</button>
+        <button type="button" id="change">新按鈕</button>
+
+        <!--傳送的方法目前就是"GET"和"POST"-->
+		<form action="http://localhost:3000/test" method="POST">
+			<label>Name:</label>
+			<input type="text" name="mydata" id="mydata">
+			<label for="mail"></label>
+            <button type="submit">同步傳送</button>
+            <button type="ajaxBtn" id="ajaxBtn">非同步傳送</button>
+        </form>
+
+        <p id="content">原本</p>
+    
+
+    </body>
+</html>
