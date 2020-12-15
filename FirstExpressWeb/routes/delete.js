@@ -5,8 +5,8 @@ var request = require('sync-request');
 
 /* DELETE users listing. */
 router.delete('/', function(req, res, next) {
-    delete_sensor(req.body.mydata);
-    res.send('received data = ' + req.body.mydata);
+    delete_sensor(req.body.sensor_deleted);
+    res.send('Delete sensor : ' + req.body.sensor_deleted);
 });
 
 
@@ -22,12 +22,13 @@ function delete_sensor(sensor_name){
     //刪除SENSOR
 
 }
-
-//delete_sensor('test_20201209_4');
+module.exports = router;
+//delete_sensor('22');
 /*
 匯出函式
-*/
+
 module.exports = {
     router:router,
     delete_sensor:delete_sensor
 };
+*/

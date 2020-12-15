@@ -13,6 +13,8 @@ var testRouter = require('./routes/test');  //這跟html不一樣
 var writeRouter = require('./routes/write');
 var deleteRouter = require('./routes/delete');
 //新增的功能
+
+
 var app = express();
 
 // view engine setup
@@ -30,7 +32,8 @@ app.use('/users', usersRouter);
 //新增的功能
 app.use('/test', testRouter);
 app.use('/write', writeRouter);  //寫入資料
-app.use('/delete', deleteRouter.router);  //刪除資料
+app.use('/delete', deleteRouter);
+//app.use('/delete', deleteRouter.router);  //刪除資料
 //新增的功能
 
 // catch 404 and forward to error handler

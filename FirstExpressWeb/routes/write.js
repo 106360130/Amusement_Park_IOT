@@ -5,8 +5,8 @@ var request = require('sync-request');
 
 /* POST users listing. */
 router.post('/', function(req, res, next) {
-  create_sensor(req.body.mydata);
-  res.send('received data = ' + req.body.mydata);
+  create_sensor(req.body.sensor_created);
+  res.send('Create sensor : ' + req.body.sensor_created);
 });
 
 //新增SENSOR(包含DESCRIPTOR和DATA)

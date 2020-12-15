@@ -27,6 +27,7 @@
                 });
 
                 /*"非同步傳送"*/
+                /*
                 $("#ajaxBtn").click(function(){
                     var xhttp = new XMLHttpRequest();
 
@@ -37,20 +38,14 @@
                             $("#content").text(this.responseText);
                         }
                     };
-
-                    //使用"GET"
-                    //這裡有些問題
-                    /*
-                    xhttp.open("GET", "http://localhost:3000/test"+"?mydata="+$("#mydata").val(), true);
-                    xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-                    xhttp.send("mydata=123");
-                    */
                     //使用"POST"
                     
                     xhttp.open("POST", "http://localhost:3000/write", true);
                     xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
                     xhttp.send("mydata="+$("#mydata").val());
                 });
+                */
+                
 
                 /*"非同步傳送"*/
                 $("#create_sensor").click(function(){
@@ -60,19 +55,38 @@
                     xhttp.onreadystatechange = function(){
                         if(this.readyState == 4 && this.status == 200)
                         {
-                            $("#content").text(this.responseText);
+                            $("#create_sensor_content").text(this.responseText);
                         }
                     };
 
                     //使用"POST"
                     xhttp.open("POST", "http://localhost:3000/write", true);
                     xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-                    xhttp.send("sensor_name="+$("#sensor_name").val());
+                    xhttp.send("sensor_created="+$("#sensor_created").val());
                     //使用"POST"
                 });
+            
+
                 
-                
-                
+                /*"非同步傳送"*/
+                $("#delete_sensor").click(function(){
+                    var xhttp = new XMLHttpRequest();
+
+                    //檢查是否有傳送成功
+                    xhttp.onreadystatechange = function(){
+                        if(this.readyState == 4 && this.status == 200)
+                        {
+                            $("#delete_sensor_content").text(this.responseText);
+                        }
+                    };
+
+                    //使用"POST"
+                    xhttp.open("DELETE", "http://localhost:3000/delete", true);
+                    xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                    xhttp.send("sensor_deleted="+$("#sensor_deleted").val());
+                    //使用"POST"
+                });   
+                   
             });
         </script>
     </head>
@@ -82,49 +96,44 @@
         <button type="button" id="change">改變</button>
         <button type="button" id="newBtn">新增按鈕</button>
 
-        <!--傳送的方法目前就是"GET"和"POST"-->
-		<form action="http://localhost:3000/write" method="POST">
-			<label>Name:</label>
-			<input type="text" name="mydata" id="mydata">
-			<label for="mail"></label>
-            <button type="submit">同步傳送</button>
-            <button type="button" id="ajaxBtn">非同步傳送</button>
-
-        </form>
         <!--"id"是獨特的，只能用在一個，其餘的"id"會沒有功能-->
-        <p id="content">原本</p>
-
-        <form method="POST">
+        <p id="create_sensor_content">create_sensor_content</p>
+        <form action="http://localhost:3000/write" method="POST">
 			<label>CREATE SENSOR</label>
-			<input type="text" name="mydata" id="mydata">
+			<input type="text" name="sensor_created" id = "sensor_created">
 			<label for="mail"></label>
-            <button type="submit">同步傳送</button>
-            <button type="button" id="ajaxBtn">非同步傳送</button>
+            <button type="button" id="create_sensor">創建sensor</button>
         </form>
 
-        <form method="POST">
+
+
+        <p id="delete_sensor_content">delete_sensor_content</p>
+        <form action="http://localhost:3000/delete"  method="DELETE">
 			<label>DELETE SENSOR</label>
-			<input type="text" name="mydata" id="mydata">
+			<input type="text" name="sensor_deleted" id = "sensor_deleted">
 			<label for="mail"></label>
-            <button type="submit">同步傳送</button>
-            <button type="button" id="ajaxBtn">非同步傳送</button>
+            <button type="button" id="delete_sensor">刪除sensor</button>
         </form>
 
+        <!--這裡等待修改中-->
+        <p class="create_data_content">create_data_content</p>
         <form method="POST">
 			<label>CREAT DATA CONTENT</label>
 			<input type="text" name="mydata" id="mydata">
 			<label for="mail"></label>
-            <button type="submit">同步傳送</button>
-            <button type="button" id="ajaxBtn">非同步傳送</button>
+            <button type="button" id="ajaxBtn">新增data</button>
         </form>
 
+
+        <p class="delete_data_content">delete_data_content</p>
         <form method="POST">
 			<label>DELETE  DATA CONTENT</label>
 			<input type="text" name="mydata" id="mydata">
-			<label for="mail"></label>
-            <button type="submit">同步傳送</button>
-            <button type="button" id="ajaxBtn">非同步傳送</button>
+            <label for="mail"></label>
+            <button type="button" id="ajaxBtn">刪除data</button>
         </form>
+        <!--這裡等待修改中-->
+
     
 
     </body>
